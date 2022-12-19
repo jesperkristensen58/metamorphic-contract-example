@@ -2,7 +2,9 @@
 
 In this repo, we show how to deploy a metamorphic contract.
 
-We deploy a first contract, then destroy it (via `selfdestruct`), and then deploy a different contract (meaning: with a different code hash) to the *same* address as previously occupied by the first contract.
+We use the work of `0age` (https://twitter.com/z0age) as a foundation.
+
+In brief: We deploy a first contract via the metamorphic proxy pattern, then destroy it (via `selfdestruct`), and then deploy a different contract (meaning: with a different code hash) to the *same* address as previously occupied by the first contract. Then we check against the <a href="https://www.rareskills.io/">Rareskills.io</a> challenge.
 
 # Solve the Challenge
 
