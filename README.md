@@ -5,8 +5,8 @@ In this repo, we show how to deploy a metamorphic contract.
 We use the work of <a href="https://twitter.com/z0age">0age</a> as a foundation:
 
  - <a href="https://0age.medium.com/the-promise-and-the-peril-of-metamorphic-contracts-9eb8b8413c5e">His medium post on this</a>
- - <a href="https://0age.medium.com/the-promise-and-the-peril-of-metamorphic-contracts-9eb8b8413c5e>His Github repo with the factory code</a>
- - <a href="https://etherscan.io/address/0x00000000e82eb0431756271f0d00cfb143685e7b>Example: The mainnet Metamorphic factory contract</a>
+ - <a href="https://0age.medium.com/the-promise-and-the-peril-of-metamorphic-contracts-9eb8b8413c5e">His Github repo with the factory code</a>
+ - <a href="https://etherscan.io/address/0x00000000e82eb0431756271f0d00cfb143685e7b">Example: The mainnet Metamorphic factory contract</a>
 
 In brief: We deploy a first contract via the metamorphic proxy pattern, then destroy it (via `selfdestruct`), and then deploy a different contract (meaning: with a different code hash) to the *same* address as previously occupied by the first contract. Then we check against the <a href="https://www.rareskills.io/">Rareskills.io</a> challenge.
 
