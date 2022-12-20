@@ -1,6 +1,6 @@
 pragma solidity 0.5.6;
 
-// NOTE(jtk): Contract from 0age copied here to local repo: unchanged.
+// NOTE(jtk): Contract from author `0age` copied here to local repo: unchanged.
 // See 0age's full repo here: https://github.com/0age/metamorphic
 
 //====== BELOW THIS LINE IS LEFT FULLY INTACT

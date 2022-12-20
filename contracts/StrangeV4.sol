@@ -3,6 +3,7 @@ pragma solidity =0.8.9;
 
 /**
  * @notice Challenge from RareSkills.io
+ * @author: Rareskills.io (reproduced locally here)
  */
 contract StrangeV4 {
     bool check1;

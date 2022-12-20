@@ -1,3 +1,8 @@
+/**
+ * @notice This is just an example contract used to solve the challenge. Can be anything really, but we keep it simple.
+ * Note that `ContractTwo` is then a contract with another code hash - we just picked something that looks very similar to this code below, but technically it needs not be.
+ * @author: Jesper Kristensen
+ */
 pragma solidity ^0.5.6;
 
 contract ContractOne {
